@@ -1,0 +1,87 @@
+import java.util.ArrayList;
+
+abstract class BookClass {
+    public String bookCode;
+    public String title;
+    public String author;
+    public String genre;
+    public String publisher;
+    public int yearPublish;
+    public int edition;
+    public String dateBorrow;
+    public String dateReturn;
+}
+
+interface Book {
+    void insertBookList();
+    void insertBorrowBook();
+    String displayBookList();
+    String displayBorrowedBooks();
+}
+
+abstract class BookList extends BookClass implements Book {
+    ArrayList<BookClass> Books = new ArrayList<>();
+    ArrayList<BookClass> BorrowedBooks = new ArrayList<>();
+
+    public void insertBookList(BookClass book) {
+        Books.add(book);
+    }
+
+    public void insertBorrowBook(BookClass book) {
+        BorrowedBooks.add(book);
+    }
+
+    public String displayBookList() {
+        String result = "";
+        for (BookClass book : Books) {
+            result += "Book Code: " + book.bookCode + "\nTitle: " + book.title + "\nAuthor: " + book.author + "\nGenre: " + book.genre + "\nPublisher: " + book.publisher + "\nYear Published: " + book.yearPublish + "\nEdition: " + book.edition + "\n\n";
+        }
+        return result;
+    }
+
+    public String displayBorrowedBooks() {
+        String result = "";
+        for (BookClass book : BorrowedBooks) {
+            result += "Book Code: " + book.bookCode + "\nTitle: " + book.title + "\nAuthor: " + book.author + "\nGenre: " + book.genre + "\nPublisher: " + book.publisher + "\nYear Published: " + book.yearPublish + "\nEdition: " + book.edition + "\nDate Borrowed: " + book.dateBorrow + "\nDate Returned: " + book.dateReturn + "\n\n";
+        }
+        return result;
+    }
+}
+
+class MainBook {
+    public static void main(String[] args) {
+        BookList bookList = new BookList() {
+            @Override
+            public void insertBookList() {
+
+            }
+
+            @Override
+            public void insertBorrowBook() {
+
+            }
+        };
+        bookList.insertBookList(new BookClass() {{
+            bookCode = "505";
+            title = "Alamat ng kapogian ni Kenneth";
+            author = "K. Malafo";
+            genre = "Short story";
+            publisher = "Juan";
+            yearPublish = 2003;
+            edition = 5;
+        }});
+        bookList.insertBorrowBook(new BookClass() {{
+            bookCode = "606";
+            title = "Humanap ng panget at ibigin ng tunay";
+            author = "K. Malafo";
+            genre = "Short Story";
+            publisher = "Juan dela cruz";
+            yearPublish = 2005;
+            edition = 10;
+            dateBorrow = "01/24/2022";
+            dateReturn = "01/31/2022";
+        }});
+        System.out.println(bookList.displayBookList());
+        System.out.println(bookList.displayBorrowedBooks());
+    }
+}
